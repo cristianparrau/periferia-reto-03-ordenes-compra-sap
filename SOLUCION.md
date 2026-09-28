@@ -28,7 +28,7 @@ web/index.html (chat) ──HTTP──▶ src/server.ts ──▶ src/agente.ts 
   - Los **bloqueos nunca se saltan**, ni siquiera con `confirmado: true` (probado en la demo con sol-002).
 
 ## 4. Elección del modelo
-- **Gemini 3.8 Flash** por REST, temperatura 0.
+- **Gemini 3.5 Flash-Lite** por REST, temperatura 0.
 - Los controles son 100 % deterministas; el modelo solo orquesta, presenta la tabla y pide la confirmación. Un modelo rápido y económico es suficiente.
 - **Costo estimado**: ~5–6 llamadas × ~7 k tokens ≈ 40 k tokens por solicitud, alrededor de **USD 0,01–0,02 por OC** con precios de lista de Flash (verificar la tarifa vigente).
 
@@ -85,6 +85,7 @@ La demo muestra un caso real del patrón: sol-005 llega con factura del 10-ago p
 ## 8. Decisiones y trade-offs
 | Decisión | Alternativa descartada | Por qué |
 |---|---|---|
+| Modelo `gemini-3.5-flash-lite` con respaldo `gemini-3.1-flash-lite` | `gemini-3.8-flash` (el más reciente) | En la capa gratuita, `gemini-3.8-flash` permite solo 20 peticiones diarias por proyecto (verificado con el error `GenerateRequestsPerDayPerProjectPerModel-FreeTier`), y además devolvió 503 por alta demanda. Un evaluador agotaría la cuota en minutos. El trabajo pesado es determinista (herramientas), así que un modelo *lite* basta para orquestar. El adaptador reintenta ante 429/503, respeta el `retryDelay` de Google y, si la cuota diaria se agota, pasa al siguiente modelo de la lista. |
 | Las herramientas reciben solo `caso` (+`confirmado`) y releen el paquete desde la fuente | Pasar `paquete`/`payload` del modelo entre herramientas, como sugiere el contrato | El modelo no puede alterar un monto entre pasos (riesgo del PRD). `oc_crear` recalcula y valida todo antes de crear. |
 | Controles deterministas en código | Validación con el LLM | Auditables, reproducibles y testeables. Un control financiero no puede depender de una respuesta probabilística. |
 | Parseo de cotización y factura con regex | Extracción con el LLM | El formato es estable y hay que interpretar el formato colombiano de miles (11.400.000). Un fallo devuelve `null` con el nombre de lo faltante, nunca un valor inventado. |
