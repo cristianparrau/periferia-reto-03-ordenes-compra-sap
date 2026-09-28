@@ -134,3 +134,5 @@ Resultados de la demo:
 | Maestros desactualizados | Consultar SAP en línea (`consultarProveedor`) en lugar de archivos. |
 | Duplicados por reintentos | Idempotencia por referencia consultada en SAP antes de cada creación. |
 | El modelo "arregla" un monto | Las herramientas no aceptan montos del modelo; recalculan todo desde la fuente. |
+| Link público que consume la clave del modelo | Límite de mensajes por IP (`LIMITE_CHAT_POR_MINUTO`, 429 con Retry-After), tope de iteraciones y de tokens por sesión, tope de sesiones en memoria; en producción, SSO corporativo. |
+| Archivos generados descargables en `/out/` desde el link público | Los datos del reto son ficticios; en producción, `out/` no se publica y los archivos se entregan en SharePoint con permisos por rol. |
