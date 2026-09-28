@@ -28,7 +28,7 @@ web/index.html (chat) ──HTTP──▶ src/server.ts ──▶ src/agente.ts 
   - Los **bloqueos nunca se saltan**, ni siquiera con `confirmado: true` (probado en la demo con sol-002).
 
 ## 4. Elección del modelo
-- **Gemini 2.5 Flash** por REST, temperatura 0.
+- **Gemini 3.8 Flash** por REST, temperatura 0.
 - Los controles son 100 % deterministas; el modelo solo orquesta, presenta la tabla y pide la confirmación. Un modelo rápido y económico es suficiente.
 - **Costo estimado**: ~5–6 llamadas × ~7 k tokens ≈ 40 k tokens por solicitud, alrededor de **USD 0,01–0,02 por OC** con precios de lista de Flash (verificar la tarifa vigente).
 
