@@ -122,9 +122,9 @@ Resultados de la demo:
 ## 11. Uso de IA
 - **Asistente**: Claude (Anthropic) en modo agente sobre la carpeta del proyecto.
 - **Para qué**: análisis de fixtures (identificación de trampas como el aprobador de otro centro o la unidad por "horas"), generación del código, pruebas de validación (esquema, sha256, secuencia, determinismo, robustez) y redacción de este documento.
-- **Decisiones propias**: Node, Gemini y revisar/validar cada bloque antes de continuar.
+- **Decisiones propias**: Node, Gemini y se reviso cada bloque generado por claude antes de continuar. Con el fin de validar que corresponda al reto solicitado y la finalidad del mismo.
 - **Corregido durante la revisión**: la primera versión infería unidad `MES` para sol-001 porque la descripción dice "vigencia 12 meses". Se corrigió para que solo "mensual" o "por mes" sean MES, y se agregó una prueba.
-- En la instalación desde cero se detectó que un valor no numérico en `.env` (ej. `MAX_ITERACIONES=abc`) dejaba el tope en `NaN` y el agente nunca llamaba al modelo. Se agregó la validación del entorno con zod al arrancar, `npm run verificar` y la suite `npm test`.
+- En la instalación desde cero se detectó que un valor no numérico en `.env` (ej. `MAX_ITERACIONES=abc`) dejaba el tope en `NaN` y el agente nunca llamaba al modelo. Se agregó la validación del entorno con zod al arrancar, `npm run verificar` y la suite `npm test`. Tambien se encontraron errores con la KEY de Gemine dentro de Render, lo que hizo realizar el ajuste y deployar varias veces la instancia.
 
 ## 12. Riesgos para producción
 | Riesgo | Mitigación |
